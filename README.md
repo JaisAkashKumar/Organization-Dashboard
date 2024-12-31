@@ -1,34 +1,34 @@
 Akash Organizations DashBoard
 
  
-Introduction
+Introduction   : 
 This application is designed to streamline organization and team management by providing intuitive features like hierarchical displays, profile management, and REST APIs for seamless data integration.
 ________________________________________
-Features
+Features  :  
 •	Hierarchical Organization Display: Visualize team structures in a clear and organized way.
 •	Profile Image Uploads: Allow users to upload  profile pictures.
 •	REST API: Fetch and manage individual records with a robust API.
 ________________________________________
-Technologies Used
-Frontend
+Technologies Used  :
+Frontend  :
 •	React
 •	Tailwind CSS (with DaisyUI plugin)
-Backend
+Backend  :
 •	Node.js
 •	Express
-Database
+Database  :
 •	MongoDB
-Other Tools
+Other Tools  :
 •	Vercel (Deployment)
 •	React-file-base-64 code (File Uploads)
 •	FormData (File and Data Handling)
 ________________________________________
-Installation
-Prerequisites
+Installation  :
+Prerequisites  :
 •	Node.js and npm installed
 •	MongoDB set up and running
 
-Steps
+Steps  :
 1.	Clone the repository:
 2.	git clone https://github.com/JaisAkashKumar/Organization-Dashboard.git
 3.	Navigate to the project directory:
@@ -59,9 +59,9 @@ API Endpoints
 Base URL
 http://localhost:5000/api
 Endpoints
-1.	Get All Organizations:
+1.	Get All Organizations  :
 o	GET /organizations
-2.	Get organization by ID:
+2.	Get organization by ID   :
 o	GET / organizations /:id
 And there are many such APIs
  
