@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 const TeamDetails = () => {
   const { teamId } = useParams();
   const [team, setTeam] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
-  const isUserInTeam = useRef(false);
+  // const [currentUser, setCurrentUser] = useState(null);
+  const [isUserInTeam, setIsUserInTeam] = useState(false);
+  // const isUserInTeam = useRef(false);
 
   // Fetch team details
   useEffect(() => {
@@ -28,22 +29,23 @@ const TeamDetails = () => {
           }
         )
         .then((res) => {
-          setCurrentUser(res.data);
+          // setCurrentUser(res.data);
+          setIsUserInTeam(res.data.id === team.organization);
         })
         .catch((err) => {
           console.error("Error fetching current user:", err);
         });
     }
-  }, []);
+  }, [team]);
 
   // Check if currentUser is part of the same organization as the team
-  useEffect(() => {
-    if (currentUser && team) {
-      // Check if currentUser belongs to the same organization as the team
-      isUserInTeam.current = currentUser.id === team.organization;
-      console.log("isUserInTeam.current", isUserInTeam.current);
-    }
-  }, [currentUser, team]);
+  // useEffect(() => {
+  //   if (currentUser && team) {
+  //     // Check if currentUser belongs to the same organization as the team
+  //     isUserInTeam.current = currentUser.id === team.organization;
+  //     console.log("isUserInTeam.current", isUserInTeam.current);
+  //   }
+  // }, [currentUser, team]);
 
   return (
     <div className="container mx-auto p-6 bg-sky-50 rounded-lg shadow-lg">
@@ -53,7 +55,7 @@ const TeamDetails = () => {
             <h2 className="text-3xl font-bold text-sky-600">{team.name}</h2>
             <p className="text-gray-700 mt-2">{team.description}</p>
             {/* Add Member button will be visible only if currentUser is in the same organization as the team */}
-            {isUserInTeam.current && (
+            {isUserInTeam && (
               <Link
                 to={`/teams/${teamId}/add-member`}
                 className="inline-block mt-4 bg-sky-500 text-white font-medium py-2 px-6 rounded-md shadow hover:bg-sky-600 transition"

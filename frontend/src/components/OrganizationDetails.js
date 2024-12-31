@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -7,7 +7,6 @@ const OrganizationDetails = () => {
   console.log("OrganizationId ya id", organizationId);
   const [organization, setOrganization] = useState({ teams: [] });
   const [teams, setTeams] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
 
   // const isUserInOrganization = useRef(false); // Use useRef to track if user is in the organization
@@ -25,7 +24,6 @@ const OrganizationDetails = () => {
           }
         )
         .then((res) => {
-          setCurrentUser(res.data);
           setIsUserInOrganization(res.data.id === organizationId);
         })
         .catch((err) => {
