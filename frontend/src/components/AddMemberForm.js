@@ -11,19 +11,6 @@ const AddMemberForm = () => {
   const [image, setImage] = useState(null);
   const [imageStatus, setImageStatus] = useState("Image Not Uploaded");
 
-  // const handleFileChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file && file.size > MAX_SIZE) {
-  //     setImage(null);
-  //     setImageStatus("Image size exceeds 500 KB");
-  //   } else if (file) {
-  //     setImage(file);
-  //     setImageStatus("Image Selected");
-  //   } else {
-  //     setImageStatus("Image Not Uploaded");
-  //   }
-  // };
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const MAX_SIZE = 500 * 1024; // 500 KB in bytes

@@ -10,7 +10,9 @@ const OrganizationDetails = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const isUserInOrganization = useRef(false); // Use useRef to track if user is in the organization
+  // const isUserInOrganization = useRef(false); // Use useRef to track if user is in the organization
+
+  const [isUserInOrganization, setIsUserInOrganization] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -24,6 +26,7 @@ const OrganizationDetails = () => {
         )
         .then((res) => {
           setCurrentUser(res.data);
+          setIsUserInOrganization(res.data.id === organizationId);
         })
         .catch((err) => {
           console.error("Error fetching current user:", err);
@@ -32,13 +35,14 @@ const OrganizationDetails = () => {
     }
   }, []); // Empty dependency array ensures this runs only once
 
-  useEffect(() => {
-    if (currentUser) {
-      // Update the ref value when currentUser is set
-      isUserInOrganization.current = currentUser.id === organizationId;
-      console.log("isUserInOrganization", isUserInOrganization.current);
-    }
-  }, [currentUser, organizationId]); // Only update when currentUser or organizationId changes
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     // Update the ref value when currentUser is set
+  //     setIsUserInOrganization(currentUser.id === organizationId);
+  //     // isUserInOrganization.current = currentUser.id === organizationId;
+  //     console.log("isUserInOrganization", isUserInOrganization.current);
+  //   }
+  // }, []); // Only update when currentUser or organizationId changes
 
   useEffect(() => {
     axios
@@ -67,6 +71,8 @@ const OrganizationDetails = () => {
       });
   }, [organizationId]);
 
+  console.log(isUserInOrganization);
+
   if (error) {
     return (
       <div className="container mx-auto p-6 bg-sky-50 rounded-lg shadow-lg">
@@ -90,7 +96,7 @@ const OrganizationDetails = () => {
               <span className="font-semibold">Location:</span>{" "}
               {organization.location}
             </p>
-            {isUserInOrganization.current && (
+            {isUserInOrganization && (
               <Link
                 to={`/organization/${organizationId}/add-team`}
                 className="inline-block mt-4 bg-sky-500 text-white font-medium py-2 px-6 rounded-md shadow hover:bg-sky-600 transition"
