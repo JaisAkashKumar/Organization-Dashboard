@@ -31,9 +31,9 @@ mongoose
   });
 
 // Import Routes
-const organizationRoutes = require("./routes/organizationRoutes");
-const teamRoutes = require("./routes/teamRoutes");
-const memberRoutes = require("./routes/memberRoutes");
+const organizationRoutes = require("./Routes/organizationRoutes");
+const teamRoutes = require("./Routes/teamRoutes");
+const memberRoutes = require("./Routes/memberRoutes");
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
