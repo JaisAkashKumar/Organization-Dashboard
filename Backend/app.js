@@ -22,10 +22,7 @@ const mongoURI = process.env.MONGO_URI; // This should be stored in your .env fi
 
 // Connect to MongoDB
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoURI)
   .then(() => {
     console.log("Connected to MongoDB Atlas");
   })
