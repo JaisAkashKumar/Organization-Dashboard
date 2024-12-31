@@ -77,7 +77,7 @@ const TeamDetails = () => {
                       {/* Image handling */}
                       {member.image ? (
                         <img
-                          src={`${process.env.REACT_APP_BACKEND_URL}/${member.image}`} // Assuming "member.image" contains "uploads/filename.jpg"
+                          src={`${member.image}`} // Assuming "member.image" contains "uploads/filename.jpg"
                           alt={`${member.name}'s profile`}
                           className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border border-gray-300"
                         />

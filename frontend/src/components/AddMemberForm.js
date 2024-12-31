@@ -11,35 +11,47 @@ const AddMemberForm = () => {
   const [image, setImage] = useState(null);
   const [imageStatus, setImageStatus] = useState("Image Not Uploaded");
 
-  const MAX_SIZE = 500 * 1024; // 500 KB in bytes
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file && file.size > MAX_SIZE) {
+  //     setImage(null);
+  //     setImageStatus("Image size exceeds 500 KB");
+  //   } else if (file) {
+  //     setImage(file);
+  //     setImageStatus("Image Selected");
+  //   } else {
+  //     setImageStatus("Image Not Uploaded");
+  //   }
+  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.size > MAX_SIZE) {
-      setImage(null);
-      setImageStatus("Image size exceeds 500 KB");
-    } else if (file) {
-      setImage(file);
-      setImageStatus("Image Selected");
+    const MAX_SIZE = 500 * 1024; // 500 KB in bytes
+
+    if (file) {
+      if (file.size > MAX_SIZE) {
+        setImage(null);
+        setImageStatus("Image size exceeds 500 KB");
+      } else {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImage(reader.result); // Base64 string
+          setImageStatus("Image successfully uploaded and converted to Base64");
+        };
+
+        reader.readAsDataURL(file);
+      }
     } else {
-      setImageStatus("Image Not Uploaded");
+      setImage(null);
+      setImageStatus("No image selected");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("uniqueId", uniqueId);
-    formData.append("team", teamId);
-    if (image) {
-      formData.append("image", image);
-    }
-
+    const postData = { name, email, image, uniqueId, team: teamId };
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/members`, formData, {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/members`, postData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
@@ -87,8 +99,8 @@ const AddMemberForm = () => {
           <input
             type="file"
             onChange={handleFileChange}
-            className="file-input file-input-bordered w-full"
             accept="image/*"
+            className="file-input file-input-bordered w-full"
           />
           <p
             className={`mt-2 text-sm ${

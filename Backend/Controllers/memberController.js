@@ -4,12 +4,9 @@ const path = require("path");
 
 exports.createMember = async (req, res) => {
   try {
-    const imagePath = req.file ? path.join("uploads", req.file.filename) : null;
-
     const member = new Member({
       ...req.body,
-      image: imagePath,
-      status: imagePath ? "Image Uploaded" : "Image Not Uploaded",
+      status: req.body.image ? "Image Uploaded" : "Image Not Uploaded",
     });
     await member.save();
     await Team.findByIdAndUpdate(req.body.team, {
