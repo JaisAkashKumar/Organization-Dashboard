@@ -39,6 +39,10 @@ const teamRoutes = require("./routes/teamRoutes");
 const memberRoutes = require("./routes/memberRoutes");
 app.use("/uploads", express.static("uploads"));
 
+app.get("/", (req, res) => {
+  res.send("Server is Up and running");
+});
+
 // Use Routes
 app.use("/api/organizations", organizationRoutes);
 app.use("/api/members", memberRoutes);
@@ -46,6 +50,12 @@ app.use("/api", teamRoutes);
 
 // Server Listening
 const PORT = process.env.PORT || 5000;
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
