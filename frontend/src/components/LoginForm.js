@@ -10,7 +10,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/organizations/login", {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/organizations/login`, {
         email,
         password,
       })

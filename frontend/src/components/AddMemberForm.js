@@ -39,7 +39,7 @@ const AddMemberForm = () => {
     }
 
     axios
-      .post("http://localhost:5000/api/members", formData, {
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/members`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {

@@ -7,8 +7,12 @@ const HomePage = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    console.log(
+      "process.env.REACT_APP_BACKEND_URL",
+      process.env.REACT_APP_BACKEND_URL
+    );
     axios
-      .get("http://localhost:5000/api/organizations")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/organizations`)
       .then((res) => setOrganizations(res.data))
       .catch((err) => console.log(err));
   }, []);

@@ -9,7 +9,7 @@ const EditMember = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/members/${memberId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/members/${memberId}`)
       .then((res) => setMember(res.data))
       .catch((err) => console.log(err));
   }, [memberId]);
@@ -21,7 +21,10 @@ const EditMember = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/api/members/${memberId}`, member)
+      .put(
+        `${process.env.REACT_APP_BACKEND_URL}/api/members/${memberId}`,
+        member
+      )
       .then(() => {
         alert("Member updated successfully");
         navigate(-1); // Go back to the previous page

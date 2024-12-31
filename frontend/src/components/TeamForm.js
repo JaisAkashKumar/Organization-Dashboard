@@ -15,7 +15,7 @@ const TeamForm = () => {
 
     axios
       .post(
-        `http://localhost:5000/api/organizations/${organizationId}/teams`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/organizations/${organizationId}/teams`,
         newTeam
       )
       .then((res) => {

@@ -14,7 +14,7 @@ const OrganizationForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/organizations",
+        `${process.env.REACT_APP_BACKEND_URL}/api/organizations`,
         {
           name,
           email,

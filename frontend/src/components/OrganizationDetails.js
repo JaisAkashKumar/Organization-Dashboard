@@ -16,9 +16,12 @@ const OrganizationDetails = () => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/api/organizations/auth/current-user", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/organizations/auth/current-user`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
         .then((res) => {
           setCurrentUser(res.data);
         })
@@ -39,12 +42,14 @@ const OrganizationDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/organizations/${organizationId}`)
+      .get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/organizations/${organizationId}`
+      )
       .then((res) => {
         setOrganization(res.data);
 
         const teamPromises = res.data.teams.map((teamId) =>
-          axios.get(`http://localhost:5000/api/teams/${teamId}`)
+          axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/teams/${teamId}`)
         );
 
         Promise.all(teamPromises)

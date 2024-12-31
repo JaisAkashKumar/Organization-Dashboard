@@ -11,7 +11,7 @@ const TeamDetails = () => {
   // Fetch team details
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/teams/${teamId}`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/teams/${teamId}`)
       .then((res) => setTeam(res.data))
       .catch((err) => console.log(err));
   }, [teamId]);
@@ -21,9 +21,12 @@ const TeamDetails = () => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/api/organizations/auth/current-user", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/organizations/auth/current-user`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
         .then((res) => {
           setCurrentUser(res.data);
         })
@@ -74,7 +77,7 @@ const TeamDetails = () => {
                       {/* Image handling */}
                       {member.image ? (
                         <img
-                          src={`http://localhost:5000/${member.image}`} // Assuming "member.image" contains "uploads/filename.jpg"
+                          src={`${process.env.REACT_APP_BACKEND_URL}/${member.image}`} // Assuming "member.image" contains "uploads/filename.jpg"
                           alt={`${member.name}'s profile`}
                           className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border border-gray-300"
                         />
